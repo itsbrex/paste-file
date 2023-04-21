@@ -3,6 +3,7 @@ import os
 import subprocess
 import json
 import argparse
+from pathlib import Path
 
 def get_finder_path():
     script = '''
@@ -20,20 +21,20 @@ def get_finder_path():
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--ph', '--paste-here', action='store_true', help='Skip dialog prompt and use terminal input to save in CWD.')
-    parser.add_argument('subfolder', nargs='?', default=None, help='Optional subfolder for saving the file.')
+    parser.add_argument('-ph', '--paste-here', action='store_true', help='Skip dialog prompt and use terminal input.')
+    parser.add_argument('-f', '--folder', nargs='?', default=None, help='Optional subfolder of CWD to save the file in.')
     return parser.parse_args()
 
 def main():
     args = get_args()
     clipboard_content = pyperclip.paste()
 
-    if args.ph:
+    if args.paste_here:
         current_path = os.getcwd()
         file_name = input("Enter the full file name with extension: ")
-        if args.subfolder:
-            file_path = os.path.join(current_path, args.subfolder, file_name)
-            os.makedirs(os.path.join(current_path, args.subfolder), exist_ok=True)
+        if args.folder:
+            file_path = os.path.join(current_path, args.folder, file_name)
+            os.makedirs(os.path.join(current_path, args.folder), exist_ok=True)
         else:
             file_path = os.path.join(current_path, file_name)
     else:
@@ -49,7 +50,8 @@ def main():
     with open(file_path, 'w') as md_file:
         md_file.write(clipboard_content)
 
-    print(f"File saved as: {file_path}")
+    relative_path = os.path.relpath(file_path, start=os.getcwd())
+    print(f"File saved as: {relative_path}")
 
 if __name__ == "__main__":
     main()
