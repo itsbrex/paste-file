@@ -20,7 +20,7 @@ def get_finder_path():
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--ph', '--paste-here', action='store_true', help='Skip dialog prompt and use terminal input to save in CWD.')
+    parser.add_argument('--ph', '--paste-here', action='store_true', help='Skip dialog prompt and use terminal input.')
     parser.add_argument('subfolder', nargs='?', default=None, help='Optional subfolder for saving the file.')
     return parser.parse_args()
 
