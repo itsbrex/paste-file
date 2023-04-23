@@ -5,6 +5,6 @@
   "author": "Brian Roach <itsbrexnpm@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "": "python3 paste-md-to-file"
+    "paste": "python3 $HOME/github/paste-clipboard-as-file/paste_as_file.py -ph"
   }
 }
