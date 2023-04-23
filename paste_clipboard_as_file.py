@@ -51,7 +51,7 @@ def main():
         md_file.write(clipboard_content)
 
     relative_path = os.path.relpath(file_path, start=os.getcwd())
-    print(f"File saved as: {relative_path}")
+    print(f"File saved at: {relative_path}")
 
 if __name__ == "__main__":
     main()
